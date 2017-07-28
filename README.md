@@ -17,5 +17,12 @@ https://www.amazon.com/gp/offer-listing/B01FCTAEK4
 
 ## done
 
+## documents
+* python https://bop.molun.net/
+* scrapy https://docs.scrapy.org/en/latest/
+
+based on  Python 2.7.13
+
+
 
 
