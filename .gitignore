@@ -1,2 +1,3 @@
 .idea
-amazon/amazon/__pycache__
+amazon/amazon/spiders/__pycache__/
+amazon/amazon/__pycache__/

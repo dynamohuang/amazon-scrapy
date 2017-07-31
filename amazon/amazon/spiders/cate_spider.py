@@ -1,5 +1,6 @@
 import scrapy
-from pprint import pprint
+import json
+from amazon.items import CateItem
 
 class CateSpider(scrapy.Spider):
     name = "cate"
@@ -12,15 +13,16 @@ class CateSpider(scrapy.Spider):
             yield scrapy.Request(url=url, callback=self.parse)
 
     def parse(self, response):
-
-       #id zg_browseRoot ul
         list = response.css('#zg_browseRoot ul')[0].css('li a')
+        item = CateItem()
+        for one in list:
+            item['title'] = one.css('::text')[0].extract()
+            link = one.css('::attr(href)')[0].extract()
+            item['link'] = link.split('ref=')[0]
+            item['level'] = 1
+            item['pid'] = 0
+            yield item
 
-        for item in list:
-            yield {
-                'title': item.css('::text').extract(),
-                'link': item.css('::attr(href)').extract(),
-                'level': '1',
-            }
+
 
 

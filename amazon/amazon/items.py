@@ -8,7 +8,10 @@
 import scrapy
 
 
-class AmazonItem(scrapy.Item):
-    # define the fields for your item here like:
-    # name = scrapy.Field()
+
+class CateItem(scrapy.Item):
+    title = scrapy.Field()
+    link = scrapy.Field()
+    level = scrapy.Field()
+    pid = scrapy.Field()
     pass
