@@ -1,9 +1,16 @@
 import scrapy
 import json
 from amazon.items import AsinBestItem
+import pydispatch
+from scrapy import signals
+from datetime import datetime
 from amazon.mysqlpipelines.pipelines import Sql
 class AsinSpider(scrapy.Spider):
     name = "asin"
+
+    def __init__(self):
+        scrapy.Spider.__init__(self)
+        pydispatch.dispatcher.connect(self.handle_spider_closed, signals.spider_closed)
 
     def start_requests(self):
         cates = Sql.findall_cate_level1()
@@ -35,6 +42,10 @@ class AsinSpider(scrapy.Spider):
             item['rank'] = rank
             yield item
 
+    def handle_spider_closed(self, spider):
+        work_time = datetime.now() - spider.started_on
+        print('total spent:', work_time)
+        print('done')
 
 
 

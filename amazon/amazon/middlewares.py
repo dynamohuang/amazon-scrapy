@@ -6,6 +6,7 @@
 # http://doc.scrapy.org/en/latest/topics/spider-middleware.html
 
 from scrapy import signals
+from datetime import datetime
 
 
 class AmazonSpiderMiddleware(object):
@@ -53,13 +54,16 @@ class AmazonSpiderMiddleware(object):
             yield r
 
     def spider_opened(self, spider):
-        spider.logger.info('Spider opened: %s' % spider.name)
+        spider.started_on = datetime.now()
+
+
 import random
 from scrapy.downloadermiddlewares.useragent import UserAgentMiddleware
 
 
 class RotateUserAgentMiddleware(UserAgentMiddleware):
     def __init__(self, user_agent=''):
+        UserAgentMiddleware.__init__(self)
         self.user_agent = user_agent
 
     def process_request(self, request, spider):

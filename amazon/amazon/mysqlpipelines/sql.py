@@ -21,6 +21,7 @@ class Sql:
 
     @classmethod
     def insert_best_asin(cls, item):
+        return 0
         sql = "INSERT INTO py_asin_best (asin,cid,rank) VALUES ('%s', '%d','%d')" % (item['asin'],item['cid'],item['rank'])
         try:
             cursor.execute(sql)
