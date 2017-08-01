@@ -12,7 +12,17 @@ class Sql:
     def insert_cate_log(cls, item):
         sql = "INSERT INTO py_cates (title,link,level,pid) VALUES ('%s', '%s','%d','%d')" % (item['title'],item['link'],item['level'],item['pid'])
         try:
-            #print(sql)
+            cursor.execute(sql)
+            db.commit()
+        except:
+            db.rollback()
+        pass
+
+
+    @classmethod
+    def insert_best_asin(cls, item):
+        sql = "INSERT INTO py_asin_best (asin,cid,rank) VALUES ('%s', '%d','%d')" % (item['asin'],item['cid'],item['rank'])
+        try:
             cursor.execute(sql)
             db.commit()
         except:

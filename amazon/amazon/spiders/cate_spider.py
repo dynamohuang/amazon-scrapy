@@ -1,5 +1,4 @@
 import scrapy
-import json
 from amazon.items import CateItem
 
 class CateSpider(scrapy.Spider):

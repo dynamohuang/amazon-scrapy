@@ -15,3 +15,9 @@ class CateItem(scrapy.Item):
     level = scrapy.Field()
     pid = scrapy.Field()
     pass
+
+class AsinBestItem(scrapy.Item):
+    asin = scrapy.Field()
+    cid = scrapy.Field()
+    rank = scrapy.Field()
+    pass

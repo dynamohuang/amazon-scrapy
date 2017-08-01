@@ -70,7 +70,7 @@ DOWNLOADER_MIDDLEWARES = {
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
     #'amazon.pipelines.AmazonPipeline': 300,
-    'amazon.mysqlpipelines.pipelines.CatePipeline':1
+    'amazon.mysqlpipelines.pipelines.AmazonPipeline':1,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
