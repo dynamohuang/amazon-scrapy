@@ -10,7 +10,7 @@ class AmazonPipeline(object):
             pass
 
         if isinstance(item,AsinBestItem):
-            Sql.insert_best_asin(item)
+            Sql.cache_best_asin(item)
             print('save best seller: '+item['asin'])
             pass
         pass

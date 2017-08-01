@@ -11,6 +11,8 @@ class AsinSpider(scrapy.Spider):
     def __init__(self):
         scrapy.Spider.__init__(self)
         pydispatch.dispatcher.connect(self.handle_spider_closed, signals.spider_closed)
+        # all asin scrapied will store in the array
+        self.asin_pool = []
 
     def start_requests(self):
         cates = Sql.findall_cate_level1()
@@ -43,6 +45,8 @@ class AsinSpider(scrapy.Spider):
             yield item
 
     def handle_spider_closed(self, spider):
+
+        Sql.store_cate_level1()
         work_time = datetime.now() - spider.started_on
         print('total spent:', work_time)
         print('done')

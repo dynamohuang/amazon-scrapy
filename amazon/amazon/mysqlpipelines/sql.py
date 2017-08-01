@@ -8,6 +8,8 @@ cursor = db.cursor()
 
 class Sql:
 
+    asin_pool = []
+
     @classmethod
     def insert_cate_log(cls, item):
         sql = "INSERT INTO py_cates (title,link,level,pid) VALUES ('%s', '%s','%d','%d')" % (item['title'],item['link'],item['level'],item['pid'])
@@ -20,13 +22,18 @@ class Sql:
 
 
     @classmethod
-    def insert_best_asin(cls, item):
-        return 0
-        sql = "INSERT INTO py_asin_best (asin,cid,rank) VALUES ('%s', '%d','%d')" % (item['asin'],item['cid'],item['rank'])
+    def cache_best_asin(cls, item):
+        cls.asin_pool.append((item['asin'], item['cid'], item['rank']))
+        pass
+
+    @classmethod
+    def store_cate_level1(cls):
+        sql = "INSERT INTO py_asin_best (asin,cid,rank) VALUES (%s, %s, %s)"
         try:
-            cursor.execute(sql)
+            cursor.executemany(sql,cls.asin_pool)
             db.commit()
-        except:
+        except Exception as err:
+            print(err)
             db.rollback()
         pass
 
