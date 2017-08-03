@@ -2,7 +2,7 @@ import pymysql
 from  amazon import settings
 
 
-db = pymysql.connect(settings.MYSQL_HOST, settings.MYSQL_USER,settings.MYSQL_PASSWORD,settings.MYSQL_DB,cursorclass=pymysql.cursors.DictCursor)
+db = pymysql.connect(settings.MYSQL_HOST, settings.MYSQL_USER,settings.MYSQL_PASSWORD,settings.MYSQL_DB,charset='utf8',cursorclass=pymysql.cursors.DictCursor)
 cursor = db.cursor()
 
 
@@ -40,7 +40,13 @@ class Sql:
 
     @classmethod
     def findall_cate_level1(cls):
-        sql = "SELECT id,link FROM py_cates WHERE level = 1"
+        sql = "SELECT id,link FROM py_cates WHERE level < 2"
+        cursor.execute(sql)
+        return cursor.fetchall()
+
+    @classmethod
+    def findall_asin_level1(cls):
+        sql = "SELECT asin, cid FROM py_asin_best"
         cursor.execute(sql)
         return cursor.fetchall()
 

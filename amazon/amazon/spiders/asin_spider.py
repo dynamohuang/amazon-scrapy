@@ -18,7 +18,7 @@ class AsinSpider(scrapy.Spider):
         cates = Sql.findall_cate_level1()
         for row in cates:
             row['link'] += '?ajax=1'
-            yield scrapy.Request(url=row['link']+'&pg=1', callback=self.parse,meta={'cid':row['id'],'page':1,'link':row['link']})
+            yield scrapy.Request(url=row['link']+'&pg=1', callback=self.parse, meta={'cid': row['id'], 'page': 1, 'link': row['link']})
 
     def parse(self, response):
         list = response.css('.zg_itemImmersion')

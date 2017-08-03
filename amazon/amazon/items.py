@@ -21,3 +21,13 @@ class AsinBestItem(scrapy.Item):
     cid = scrapy.Field()
     rank = scrapy.Field()
     pass
+
+class DetailItem(scrapy.Item):
+    asin = scrapy.Field()
+    image = scrapy.Field()
+    title = scrapy.Field()
+    star = scrapy.Field()
+    reviews = scrapy.Field()
+    seller_price = scrapy.Field()
+    amazon_price = scrapy.Field()
+    pass
