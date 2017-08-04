@@ -12,8 +12,8 @@ https://www.amazon.com/gp/offer-listing/B01FCTAEK4
 
 ## TODO
 1. Scrapy the detail by asin pool(50%)
-2, Scrapy the keywords rank by asin （next week） 
-3, Find the bad comment customer·s email and order id（considering to open source）
+2. Scrapy the keywords rank by asin （next week） 
+3. Find the bad comment customer·s email and order id（considering to open source）
 
 ## done
 1. Scrapy  the category of level 1 from https://www.amazon.com/Best-Sellers/zgbs/ and store in mysql
