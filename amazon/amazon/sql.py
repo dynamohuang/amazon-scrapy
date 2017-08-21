@@ -49,8 +49,8 @@ class ReviewSql(object):
 
     @classmethod
     def update_profile_item(cls, item):
-        sql = "UPDATE `py_review_profile` SET `product`=%s, `brand`=%s, `seller`=%s, `image`=%s, `review_total`='%s', `review_rate`='%s'," \
-              "`pct_five`='%s', `pct_four`='%s', `pct_three`='%s', `pct_two`='%s', `pct_one`='%s', `latest_total`=`review_total` " \
+        sql = "UPDATE `py_review_profile` SET `latest_total`=`review_total`,`product`=%s, `brand`=%s, `seller`=%s, `image`=%s, `review_total`='%s', `review_rate`='%s'," \
+              "`pct_five`='%s', `pct_four`='%s', `pct_three`='%s', `pct_two`='%s', `pct_one`='%s' " \
               "WHERE `asin`='%s'" % \
               (cls.conn.escape(item['product']), cls.conn.escape(item['brand']), cls.conn.escape(item['seller']), cls.conn.escape(item['image']),
                item['review_total'], item['review_rate'],item['pct_five'], item['pct_four'], item['pct_three'], item['pct_two'],
