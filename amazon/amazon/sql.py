@@ -78,9 +78,7 @@ class ReviewSql(object):
               (item['asin'], item['review_id'], cls.conn.escape(item['reviewer']), item['review_url'], item['star'],
                item['date'], cls.conn.escape(item['title']), cls.conn.escape(item['content']))
         try:
-            if cls.check_exist_detail(item['asin'], item['review_id']):
-                pass
-            else:
+            if cls.check_exist_detail(item['asin'], item['review_id']) is not True:
                 cls.cursor.execute(sql)
                 cls.conn.commit()
         except pymysql.MySQLError as e:

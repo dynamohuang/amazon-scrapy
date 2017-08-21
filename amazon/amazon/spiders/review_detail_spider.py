@@ -51,7 +51,7 @@ class ReviewSpider(scrapy.Spider):
             item['date'] = Helper.get_date_split_str(row.css('.review-date::text')[0].extract())
             item['star'] = Helper.get_star_split_str(row.css('.review-rating span::text')[0].extract())
             content = row.css('.review-data .review-text::text').extract()
-            item['content'] = content[0] if len(content) > 0 else ''
+            item['content'] = '<br />'.join(content) if len(content) > 0 else ''
             yield item
 
     def get_detail(self, response):
