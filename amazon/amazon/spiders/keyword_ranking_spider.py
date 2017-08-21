@@ -3,12 +3,18 @@ from pydispatch import dispatcher
 from scrapy import signals
 from scrapy.exceptions import CloseSpider
 
-from amazon.amazon.items import KeywordRankingItem
-from amazon.amazon.sql import RankingSql
+from amazon.items import KeywordRankingItem
+from amazon.sql import RankingSql
 
 
 class KeywordRankingSpider(scrapy.Spider):
     name = 'keyword_ranking'
+    custom_settings = {
+        'LOG_LEVEL': 'ERROR',
+        'LOG_FILE': 'keyword_ranking.json',
+        'LOG_ENABLED': True,
+        'LOG_STDOUT': True
+    }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

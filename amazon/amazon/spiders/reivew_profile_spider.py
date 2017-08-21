@@ -1,7 +1,7 @@
 import scrapy
 
-from amazon.amazon.helper import Helper
-from amazon.amazon.items import ReviewProfileItem
+from amazon.helper import Helper
+from amazon.items import ReviewProfileItem
 
 
 class ProfileSpider(scrapy.Spider):

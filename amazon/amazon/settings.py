@@ -101,3 +101,11 @@ MYSQL_PASSWORD = 'pricejot'
 MYSQL_PORT = '3306'
 MYSQL_DB = 'ipricejot'
 
+MYSQL = {
+    'host': '192.168.100.51',
+    'port': 3306,
+    'user': 'root',
+    'password': 'pricejot',
+    'charset': 'utf8mb4',
+    'database': 'ipricejot'
+}

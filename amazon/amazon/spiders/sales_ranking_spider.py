@@ -5,13 +5,19 @@ import scrapy
 from pydispatch import dispatcher
 from scrapy import signals
 
-from amazon.amazon.helper import Helper
-from amazon.amazon.items import SalesRankingItem
-from amazon.amazon.sql import RankingSql
+from amazon.helper import Helper
+from amazon.items import SalesRankingItem
+from amazon.sql import RankingSql
 
 
 class SalesRankingSpider(scrapy.Spider):
     name = 'sales_ranking'
+    custom_settings = {
+        'LOG_LEVEL': 'ERROR',
+        'LOG_FILE': 'sales_ranking.json',
+        'LOG_ENABLED': True,
+        'LOG_STDOUT': True
+    }
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)

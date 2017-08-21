@@ -5,17 +5,16 @@ import scrapy
 from pydispatch import dispatcher
 from scrapy import signals
 
-from amazon_spider.items import ReviewProfileItem
-from amazon_spider.items import ReviewDetailItem
-from amazon_spider.helper import Helper
-from amazon_spider.sql import ReviewSql
+from amazon.helper import Helper
+from amazon.items import ReviewDetailItem, ReviewProfileItem
+from amazon.sql import ReviewSql
 
 
 class ReviewSpider(scrapy.Spider):
-    name = 'detail'
+    name = 'review_detail'
     custom_settings = {
         'LOG_LEVEL': 'ERROR',
-        'LOG_FILE': 'profile.json',
+        'LOG_FILE': 'review_detail.json',
         'LOG_ENABLED': True,
         'LOG_STDOUT': True
     }

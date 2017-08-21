@@ -82,6 +82,46 @@ CREATE TABLE `py_salesrankings` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+/*Table structure for table `salesranking_keywords` */
+
+DROP TABLE IF EXISTS `salesranking_keywords`;
+
+CREATE TABLE `salesranking_keywords` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `sk_id` int(11) NOT NULL COMMENT 'saleranking_id',
+  `keyword` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '关键字',
+  `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '抓取状态 0抓取中 1成功 2抓取失败',
+  `rank` int(11) NOT NULL DEFAULT '0' COMMENT '当前排名',
+  `last_rank` int(11) NOT NULL DEFAULT '0' COMMENT '上次排名',
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `salesranking_keywords_sk_id_keyword_unique` (`sk_id`,`keyword`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Table structure for table `salesrankings` */
+
+DROP TABLE IF EXISTS `salesrankings`;
+
+CREATE TABLE `salesrankings` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `sid` int(11) NOT NULL COMMENT 'seller_uid',
+  `asin` varchar(11) COLLATE utf8_unicode_ci NOT NULL COMMENT '商品asin号',
+  `title` varchar(500) COLLATE utf8_unicode_ci NOT NULL COMMENT '商品名称',
+  `image` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '商品图片',
+  `link` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '亚马逊商品链接',
+  `classify` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '商品分类',
+  `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '抓取状态 0抓取中 1成功 2抓取失败',
+  `rank` int(11) NOT NULL DEFAULT '0' COMMENT '目前排名',
+  `last_rank` int(11) NOT NULL DEFAULT '0' COMMENT '上次排名',
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `salesrankings_sid_asin_unique` (`sid`,`asin`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
