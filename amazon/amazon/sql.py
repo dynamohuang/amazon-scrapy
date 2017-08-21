@@ -40,9 +40,10 @@ class ReviewSql(object):
                 cls.cursor.execute(sql)
                 cls.conn.commit()
                 print('save review profile--[asin]:', item['asin'])
-        except pymysql.MySQLError:
+        except pymysql.MySQLError as e:
             with open('sql.log', 'r+') as i:
-                i.write('profile sql error!')
+                i.write('profile sql error![error]:'+e)
+            print(e)
             cls.conn.rollback()
         pass
 
@@ -51,13 +52,14 @@ class ReviewSql(object):
         sql = "UPDATE `py_review_profile` SET `product`=%s, `brand`=%s, `seller`=%s, `image`=%s, `review_total`='%s', `review_rate`='%s'," \
               "`pct_five`='%s', `pct_four`='%s', `pct_three`='%s', `pct_two`='%s', `pct_one`='%s', `latest_total`=`review_total` " \
               "WHERE `asin`='%s'" % \
-              (cls.conn.escape(item['product']), cls.conn.escape(item['brand']), cls.conn.escape(item['seller']), item['image'],
+              (cls.conn.escape(item['product']), cls.conn.escape(item['brand']), cls.conn.escape(item['seller']), cls.conn.escape(item['image']),
                item['review_total'], item['review_rate'],item['pct_five'], item['pct_four'], item['pct_three'], item['pct_two'],
                item['pct_one'], item['asin'])
         try:
             cls.cursor.execute(sql)
             cls.conn.commit()
-        except:
+        except pymysql.MySQLError as e:
+            print(e)
             cls.conn.rollback()
 
     @classmethod
@@ -81,7 +83,8 @@ class ReviewSql(object):
             else:
                 cls.cursor.execute(sql)
                 cls.conn.commit()
-        except:
+        except pymysql.MySQLError as e:
+            print(e)
             cls.conn.rollback()
         pass
 
@@ -108,6 +111,7 @@ class ReviewSql(object):
     def update_profile_self(cls, asin):
         sql = "UPDATE `py_review_profile` SET `latest_total` = `review_total` WHERE `asin`='%s'" % asin
         cls.cursor.execute(sql)
+        cls.conn.commit()
 
 
 class RankingSql(object):
