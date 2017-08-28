@@ -36,7 +36,7 @@ class Helper(object):
 
     @classmethod
     def get_rank_classify(cls, spider_str):
-        result = re.match(r'#(\d*)(?:.*)in (.*) \(.*[Ss]ee [Tt]op.*\)', spider_str)
+        result = re.match(r'#([0-9,]+)(?:.*)in (.*) \(.*[Ss]ee [Tt]op.*\)', spider_str)
         return result.groups()
 
     @classmethod

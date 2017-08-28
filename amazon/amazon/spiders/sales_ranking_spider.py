@@ -29,7 +29,9 @@ class SalesRankingSpider(scrapy.Spider):
             yield scrapy.Request('https://www.amazon.com/dp/%s' % item['asin'], self.parse, meta={'item': item})
 
     def parse(self, response):
-        product_detail = response.xpath('//div/table').re(r'#\d*(?:.*)in .* \(.*[Ss]ee [Tt]op.*\)')
+        product_detail = response.xpath('//div/table').re(r'#[0-9,]+(?:.*)in.*\(.*[Ss]ee [Tt]op.*\)')
+        if len(product_detail) == 0:
+            product_detail = response.css('div #SalesRank').re(r'#[0-9,]+(?:.*)in.*\(.*[Ss]ee [Tt]op.*\)')
         if len(product_detail) != 0:
             item = SalesRankingItem()
             key_rank_str = product_detail[0]

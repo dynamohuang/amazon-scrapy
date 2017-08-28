@@ -167,7 +167,7 @@ class RankingSql(object):
 
     @classmethod
     def update_keywords_expire_rank(cls, skwd_id):
-        sql = "UPDATE `%s` SET `last_rank`=`rank`, `rank`=321, `updated_at`=NOW() WHERE `id`='%s'" % (cls.keyword_table, skwd_id)
+        sql = "UPDATE `%s` SET `last_rank`=`rank`, `rank`=321, `updated_at`=NOW(), `status`=1 WHERE `id`='%s'" % (cls.keyword_table, skwd_id)
         py_sql = "INSERT INTO `%s`(`skwd_id`, `rank`, `date`) VALUES ('%s', 321, NOW())" % (cls.py_keyword_table, skwd_id)
         try:
             cls.cursor.execute(sql)
