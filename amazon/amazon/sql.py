@@ -151,7 +151,7 @@ class RankingSql(object):
 
     @classmethod
     def fetch_sales_ranking(cls):
-        sql = "SELECT `id`, `asin` FROM `%s`WHERE `status` =1" % cls.sales_table
+        sql = "SELECT `id`, `asin` FROM `%s`WHERE `status` =1 AND `deleted_at` is NULL" % cls.sales_table
         cls.cursor.execute(sql)
         item = cls.cursor.fetchall()
         return item
@@ -159,7 +159,7 @@ class RankingSql(object):
     @classmethod
     def fetch_keywords_ranking(cls):
         sql = "SELECT `a`.`id`, `a`.`keyword`, `a`.`rank` as `rank`, `b`.`asin` as `asin` FROM `%s` as `a` " \
-              "LEFT JOIN `%s` as `b` ON `b`.`id`=`a`.`sk_id`" % \
+              "LEFT JOIN `%s` as `b` ON `b`.`id`=`a`.`sk_id` WHERE `b`.`deleted_at` is NULL AND `a`.`deleted_at` is NULL " % \
               (cls.keyword_table, cls.sales_table)
         cls.cursor.execute(sql)
         item = cls.cursor.fetchall()
