@@ -3,6 +3,11 @@ from amazon.items import CateItem
 
 class CateSpider(scrapy.Spider):
     name = "cate"
+    level = 1
+
+    def __int__(self, level=1, *args, **kwargs):
+        super(CateSpider, self).__init__(*args, **kwargs)
+        self.level = level
 
     def start_requests(self):
         urls = [
@@ -29,9 +34,9 @@ class CateSpider(scrapy.Spider):
             item['link'] = link.split('ref=')[0]
             item['level'] = leve_cur
             item['pid'] = 1
-            print(leve_cur)
             yield item
-            yield scrapy.Request(url=item['link'], callback=self.parse, meta=response.meta)
+            if int(float(self.level)) > 1:
+                yield scrapy.Request(url=item['link'], callback=self.parse, meta=response.meta)
 
 
 

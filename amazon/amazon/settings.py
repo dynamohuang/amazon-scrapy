@@ -93,7 +93,7 @@ ITEM_PIPELINES = {
 #HTTPCACHE_DIR = 'httpcache'
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
-LOG_LEVEL = 'ERROR'
+#LOG_LEVEL = 'ERROR'
 #mysql
 MYSQL_HOST = '192.168.100.51'
 MYSQL_USER = 'root'

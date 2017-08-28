@@ -13,20 +13,34 @@ class DetailSpider(scrapy.Spider):
         pydispatch.dispatcher.connect(self.handle_spider_closed, signals.spider_closed)
         # all asin scrapied will store in the array
         self.product_pool = []
+        self.log = []
 
 
     def start_requests(self):
         products = Sql.findall_asin_level1()
         for row in products:
             yield scrapy.Request(url='https://www.amazon.com/gp/offer-listing/'+ row['asin'] +'/?f_new=true', callback=self.parse, meta={'asin': row['asin'], 'cid': row['cid']})
-        #yield scrapy.Request(url='https://www.amazon.com/gp/offer-listing/'+ 'B01EI7U96K' +'/?f_new=true', callback=self.parse, meta={'asin': 'B01EI7U96K'})
 
     def parse(self, response):
+        print('hell')
+        try:
+            response.meta['from']
+        except:
+            response.meta['from'] = None
+        print(response.meta['from'])
+        print('22')
+        #fetch from review
+        if response.meta['from'] == 'review':
+            item = DetailItem()
+            item = response.css('.product-title >h1>a')[0].extract()
+            print(item)
+            return item
 
         #404 or unsupport asin
         if not response.css('#olpProductImage'):
-            print(response.meta['cid'], ':', response.meta['asin'])
-            return []
+             #fetch from review
+            print('22')
+            scrapy.Request(url='https://www.amazon.com/product-reviews/'+ response.meta['asin'] , callback=self.parse, meta={'from': 'review', 'asin': response.meta['asin'], 'cid': response.meta['cid']})
         try:
             item = DetailItem()
             item['asin'] = response.meta['asin']
@@ -72,6 +86,7 @@ class DetailSpider(scrapy.Spider):
         print('total spent:', work_time)
         print(len(self.product_pool), 'item fetched')
         print('done')
+        print(self.log)
 
 
 
