@@ -29,18 +29,21 @@ class KeywordRankingSpider(scrapy.Spider):
 
     def parse(self, response):
         result_li = response.xpath('//li[@data-asin]')
-        for result in result_li:
-            data_asin = result.xpath('./@data-asin').extract()[0]
-            if data_asin == response.meta['asin']:
-                self.found[response.meta['skwd_id']] = True
-                item = KeywordRankingItem()
-                data_id = result.xpath('./@id').extract()[0]
-                item_id = data_id.split('_')[1]
-                item['skwd_id'] = response.meta['skwd_id']
-                item['rank'] = int(item_id) +1
-                yield item
+        if len(result_li) == 0:
+            self.found[response.meta['skwd_id']] = 'none'
+        else:
+            for result in result_li:
+                data_asin = result.xpath('./@data-asin').extract()[0]
+                if data_asin == response.meta['asin']:
+                    self.found[response.meta['skwd_id']] = True
+                    item = KeywordRankingItem()
+                    data_id = result.xpath('./@id').extract()[0]
+                    item_id = data_id.split('_')[1]
+                    item['skwd_id'] = response.meta['skwd_id']
+                    item['rank'] = int(item_id) +1
+                    yield item
 
-                break
+                    break
 
     def load_first_page(self, response):
         page = response.css('#bottomBar span.pagnDisabled::text').extract()
@@ -58,4 +61,7 @@ class KeywordRankingSpider(scrapy.Spider):
     def close_scrapy(self):
         for skwd_id, is_found in self.found.items():
             if is_found is not True:
-                RankingSql.update_keywords_expire_rank(skwd_id)
+                if is_found == 'none':
+                    RankingSql.update_keywords_none_rank(skwd_id)
+                else:
+                    RankingSql.update_keywords_expire_rank(skwd_id)
