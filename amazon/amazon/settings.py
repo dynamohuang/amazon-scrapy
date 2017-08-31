@@ -109,3 +109,4 @@ MYSQL = {
     'charset': 'utf8mb4',
     'database': 'ipricejot'
 }
+RETRY_TIMES = 30
