@@ -38,7 +38,6 @@ class SalesRankingSpider(scrapy.Spider):
             key_rank_tuple = Helper.get_rank_classify(key_rank_str)
             item['rank'] = Helper.get_num_split_comma(key_rank_tuple[0])
             item['classify'] = key_rank_tuple[1]
-            item['sk_id'] = response.meta['item']['id']
             item['asin'] = response.meta['item']['asin']
             yield item
         else:

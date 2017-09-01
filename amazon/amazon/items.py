@@ -66,7 +66,6 @@ class KeywordRankingItem(scrapy.Item):
 
 
 class SalesRankingItem(scrapy.Item):
-    sk_id = scrapy.Field()
     rank = scrapy.Field()
     classify = scrapy.Field()
     asin = scrapy.Field()

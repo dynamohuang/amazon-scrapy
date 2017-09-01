@@ -102,11 +102,11 @@ MYSQL_PORT = '3306'
 MYSQL_DB = 'ipricejot'
 
 MYSQL = {
-    'host': '192.168.100.51',
+    'host': MYSQL_HOST,
     'port': 3306,
-    'user': 'root',
-    'password': 'pricejot',
+    'user': MYSQL_USER,
+    'password': MYSQL_PASSWORD,
     'charset': 'utf8mb4',
-    'database': 'ipricejot'
+    'database': MYSQL_DB
 }
 RETRY_TIMES = 30
