@@ -125,8 +125,8 @@ class RankingSql(object):
     def insert_sales_ranking(cls, item):
         sql = "INSERT INTO `%s`(`sk_id`, `rank`, `classify`, `date`) VALUES ('%s', '%s', %s, '%s')" % \
               (cls.py_sales_table, item['sk_id'], item['rank'], cls.conn.escape(item['classify']), datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
-        update_sql = "UPDATE `%s` SET `last_rank`=`rank`, `status`=1, `classify`=%s, `rank`='%s', `updated_at`=NOW() WHERE `id`='%s'" % \
-                     (cls.sales_table, cls.conn.escape(item['classify']), item['rank'], item['sk_id'])
+        update_sql = "UPDATE `%s` SET `last_rank`=`rank`, `status`=1, `classify`=%s, `rank`='%s', `updated_at`=NOW() WHERE `asin` = '%s'"  % \
+                     (cls.sales_table, cls.conn.escape(item['classify']), item['rank'], item['asin'])
         try:
             cls.cursor.execute(sql)
             cls.cursor.execute(update_sql)

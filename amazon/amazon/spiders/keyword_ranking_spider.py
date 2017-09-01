@@ -3,6 +3,7 @@ from pydispatch import dispatcher
 from scrapy import signals
 from scrapy.exceptions import CloseSpider
 
+from amazon.helper import Helper
 from amazon.items import KeywordRankingItem
 from amazon.sql import RankingSql
 
@@ -25,7 +26,7 @@ class KeywordRankingSpider(scrapy.Spider):
 
     def start_requests(self):
         for item in self.items:
-            yield scrapy.Request('https://www.amazon.com/s/?field-keywords=%s' % item['keyword'], self.load_first_page, meta={'item': item})
+            yield scrapy.Request(('https://www.amazon.com/s/?field-keywords=%s&t=' + Helper.random_str(10)) % item['keyword'], self.load_first_page, meta={'item': item})
 
     def parse(self, response):
         result_li = response.xpath('//li[@data-asin]')

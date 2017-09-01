@@ -39,6 +39,7 @@ class SalesRankingSpider(scrapy.Spider):
             item['rank'] = Helper.get_num_split_comma(key_rank_tuple[0])
             item['classify'] = key_rank_tuple[1]
             item['sk_id'] = response.meta['item']['id']
+            item['asin'] = response.meta['item']['asin']
             yield item
         else:
             raise Exception('catch asin[%s] sales ranking error' % response.meta['item']['asin'])
