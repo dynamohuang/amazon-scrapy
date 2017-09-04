@@ -3,6 +3,7 @@ import datetime
 import re
 
 from math import ceil
+from random import Random
 
 
 class Helper(object):
@@ -47,3 +48,13 @@ class Helper(object):
     @classmethod
     def get_keyword_page_range(cls, page_num):
         return range(page_num - 4 if page_num - 4 > 0 else 1, page_num + 4 if page_num + 4 <= 20 else 20)
+
+    @classmethod
+    def random_str(cls, randomlength):
+        str = ''
+        chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz0123456789'
+        length = len(chars) - 1
+        random = Random()
+        for i in range(randomlength):
+            str += chars[random.randint(0, length)]
+        return str
