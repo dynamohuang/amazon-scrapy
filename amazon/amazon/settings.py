@@ -58,6 +58,7 @@ SPIDER_MIDDLEWARES = {
 DOWNLOADER_MIDDLEWARES = {
     'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
     'amazon.middlewares.RotateUserAgentMiddleware': 543,
+    'amazon.middlewares.ProxyMiddleware': 542,
 }
 
 # Enable or disable extensions
