@@ -45,7 +45,7 @@ class KeywordRankingSpider(scrapy.Spider):
                         item_id = data_id.split('_')[1]
                         keywordItem['skwd_id'] = item['id']
                         keywordItem['rank'] = int(item_id) +1
-                        yield item
+                        yield keywordItem
 
                         break
 
