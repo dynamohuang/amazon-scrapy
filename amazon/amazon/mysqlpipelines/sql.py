@@ -46,7 +46,7 @@ class Sql:
 
     @classmethod
     def findall_asin_level1(cls):
-        sql = "SELECT asin, cid FROM py_asin_best"
+        sql = "SELECT distinct(asin), cid FROM py_asin_best limit 0,300"
         cursor.execute(sql)
         return cursor.fetchall()
 

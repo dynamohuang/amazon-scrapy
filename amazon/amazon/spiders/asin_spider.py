@@ -7,6 +7,11 @@ from datetime import datetime
 from amazon.mysqlpipelines.pipelines import Sql
 class AsinSpider(scrapy.Spider):
     name = "asin"
+    custom_settings = {
+        'LOG_LEVEL': 'ERROR',
+        'LOG_ENABLED': True,
+        'LOG_STDOUT': True
+    }
 
     def __init__(self):
         scrapy.Spider.__init__(self)
