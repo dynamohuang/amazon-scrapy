@@ -38,12 +38,12 @@ class KeywordRankingSpider(scrapy.Spider):
                     data_asin = result.xpath('./@data-asin').extract()[0]
                     if data_asin == item['asin']:
                         self.found[item['id']] = True
-                        item = KeywordRankingItem()
+                        keywordItem = KeywordRankingItem()
                         data_id = result.xpath('./@id').extract()[0]
                         item_id = data_id.split('_')[1]
-                        item['skwd_id'] = item['id']
-                        item['rank'] = int(item_id) +1
-                        yield item
+                        keywordItem['skwd_id'] = item['id']
+                        keywordItem['rank'] = int(item_id) +1
+                        yield keywordItem
 
                         break
 
