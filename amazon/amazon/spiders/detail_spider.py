@@ -59,7 +59,6 @@ class DetailSpider(scrapy.Spider):
         yield item
 
     def handle_spider_closed(self, spider):
-        Sql.store_cate_level1()
         work_time = datetime.now() - spider.started_on
         print('total spent:', work_time)
         print(len(self.product_pool), 'item fetched')

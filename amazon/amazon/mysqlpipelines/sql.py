@@ -2,7 +2,7 @@ import pymysql
 from  amazon import settings
 
 
-db = pymysql.connect(settings.MYSQL_HOST, settings.MYSQL_USER,settings.MYSQL_PASSWORD,settings.MYSQL_DB,charset='utf8',cursorclass=pymysql.cursors.DictCursor)
+db = pymysql.connect(settings.MYSQL_HOST, settings.MYSQL_USER, settings.MYSQL_PASSWORD, settings.MYSQL_DB, charset=settings.MYSQL_CHARSET, cursorclass=pymysql.cursors.DictCursor)
 cursor = db.cursor()
 
 
@@ -20,6 +20,15 @@ class Sql:
             db.rollback()
         pass
 
+    @classmethod
+    def clear_cate(cls, level):
+        sql = "truncate table py_cates"
+        try:
+            cursor.execute(sql)
+            db.commit()
+        except:
+            db.rollback()
+        pass
 
     @classmethod
     def cache_best_asin(cls, item):
@@ -27,16 +36,17 @@ class Sql:
         pass
 
     @classmethod
-    def store_cate_level1(cls):
+    def store_best_asin(cls):
+        sql_clear = "truncate table py_asin_best"
         sql = "INSERT INTO py_asin_best (asin,cid,rank) VALUES (%s, %s, %s)"
         try:
+            cursor.execute(sql_clear)
             cursor.executemany(sql,cls.asin_pool)
             db.commit()
         except Exception as err:
             print(err)
             db.rollback()
         pass
-
 
     @classmethod
     def findall_cate_level1(cls):
