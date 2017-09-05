@@ -2,8 +2,8 @@ import scrapy
 import re
 import json
 
-class ProxySpider(scrapy.Spider):
-    name = "proxy"
+class FineproxySpider(scrapy.Spider):
+    name = "fineproxy"
     custom_settings = {
         'LOG_LEVEL': 'ERROR',
         'LOG_ENABLED': True,

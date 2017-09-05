@@ -47,7 +47,7 @@ COOKIES_ENABLED = False
 # Enable or disable spider middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/spider-middleware.html
 SPIDER_MIDDLEWARES = {
-    'amazon.middlewares.AmazonSpiderMiddleware': 543,
+    'amazon.middlewares.AmazonSpiderMiddleware.AmazonSpiderMiddleware': 543,
 }
 
 # Enable or disable downloader middlewares
@@ -57,8 +57,8 @@ SPIDER_MIDDLEWARES = {
 #}
 DOWNLOADER_MIDDLEWARES = {
     'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
-    'amazon.middlewares.RotateUserAgentMiddleware': 543,
-    'amazon.middlewares.ProxyMiddleware': 542,
+    'amazon.middlewares.RotateUserAgentMiddleware.RotateUserAgentMiddleware': 543,
+    #'amazon.middlewares.ProxyMiddleware.ProxyMiddleware': 542,
 }
 
 # Enable or disable extensions
@@ -99,15 +99,16 @@ ITEM_PIPELINES = {
 MYSQL_HOST = '192.168.100.51'
 MYSQL_USER = 'root'
 MYSQL_PASSWORD = 'pricejot'
-MYSQL_PORT = '3306'
+MYSQL_PORT = 3306
 MYSQL_DB = 'ipricejot'
+MYSQL_CHARSET = 'utf8mb4'
 
 MYSQL = {
     'host': MYSQL_HOST,
-    'port': 3306,
+    'port': MYSQL_PORT,
     'user': MYSQL_USER,
     'password': MYSQL_PASSWORD,
-    'charset': 'utf8mb4',
+    'charset': MYSQL_CHARSET,
     'database': MYSQL_DB
 }
 RETRY_TIMES = 30

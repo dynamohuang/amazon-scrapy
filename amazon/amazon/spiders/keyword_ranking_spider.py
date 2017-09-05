@@ -1,8 +1,6 @@
 import scrapy
 from pydispatch import dispatcher
 from scrapy import signals
-from scrapy.exceptions import CloseSpider
-
 from amazon.helper import Helper
 from amazon.items import KeywordRankingItem
 from amazon.sql import RankingSql
