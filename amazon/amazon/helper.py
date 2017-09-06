@@ -11,8 +11,11 @@ class Helper(object):
     @classmethod
     def get_num_split_comma(cls, value):
         num = value.split(',')
+        ranknum = ''
         if len(num) > 1:
-            return num[0] + num[1]
+            for n in num:
+                ranknum += n
+            return ranknum
         else:
             return value
 
