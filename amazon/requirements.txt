@@ -1,0 +1,3 @@
+Scrapy==1.4.0
+PyMySQL==0.7.11
+PyDispatcher==2.0.5

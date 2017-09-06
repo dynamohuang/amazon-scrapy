@@ -65,6 +65,7 @@ class DetailSpider(scrapy.Spider):
         work_time = datetime.now() - spider.started_on
         print('total spent:', work_time)
         print(len(self.product_pool), 'item fetched')
+        print(self.product_pool)
         print('done')
         print(self.log)
 

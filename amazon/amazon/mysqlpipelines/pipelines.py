@@ -44,7 +44,6 @@ class AmazonPipeline(object):
             return item
 
         if isinstance(item, DetailItem):
-            print(item)
             return item
 
         pass
