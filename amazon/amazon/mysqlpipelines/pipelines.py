@@ -5,6 +5,7 @@ from amazon.sql import ReviewSql, RankingSql
 from .sql import Sql
 from amazon.items import CateItem, ReviewProfileItem, ReviewDetailItem, SalesRankingItem, KeywordRankingItem
 from amazon.items import AsinBestItem
+from amazon.items import DetailItem
 
 class AmazonPipeline(object):
     def process_item(self,item,spider):
@@ -41,6 +42,11 @@ class AmazonPipeline(object):
         if isinstance(item, KeywordRankingItem):
             RankingSql.insert_keyword_ranking(item)
             return item
+
+        if isinstance(item, DetailItem):
+            print(item)
+            return item
+
         pass
 
 

@@ -2,8 +2,11 @@ import scrapy
 from amazon.items import DetailItem
 from amazon.mysqlpipelines.pipelines import Sql
 import pydispatch
+import re
+from amazon.helper import Helper
 from scrapy import signals
 from datetime import datetime
+
 
 
 class DetailSpider(scrapy.Spider):
@@ -101,13 +104,20 @@ class DetailSpider(scrapy.Spider):
         return item
 
     def fetch_detail_from_review_page(self, response):
+
+
+        info = response.css('#cm_cr-product_info')[0].extract()
         item = DetailItem()
-        #item['title'] = response.css('.product-title >h1>a')[0].extract()
         item['asin'] = response.meta['asin']
-        item['image'] = '2'
-        item['title'] = '2'
-        item['star'] = '2'
-        item['reviews'] = '2'
-        item['seller_price'] = '2'
-        item['amazon_price'] = '2'
+        item['image'] = response.css('.product-image img::attr(src)')[0].extract().strip().replace('S60', 'S320')
+        item['title'] = response.css('.product-title >h1>a::text')[0].extract().strip()
+        item['star'] = re.findall("([0-9].[0-9]) out of", info)[0]
+
+        # 获取评价总数
+        item['reviews'] = response.css('.AverageCustomerReviews .totalReviewCount::text')[0].extract().strip()
+        item['reviews'] = Helper.get_num_split_comma(item['reviews'])
+        item['seller_price'] = 0
+        item['amazon_price'] = 0
+        price = response.css('.arp-price::text')[0].extract().strip().lstrip('$')
+        item['amazon_price'] = price
         return item
