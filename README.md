@@ -3,6 +3,15 @@ Scrapy the  detail and lowest price of amazon  best seller product by python spi
  
 In developing........, welcome to join ! 
 
+## How to install
+install python3.6
+pip install -r requirements.txt
+
+if you are contributer
+recommend to php install pipreqs
+run "pipreqs /path/to/project" if you add some packages in your code 
+
+
 ## Source url
 * list page
 https://www.amazon.com/Best-Sellers/zgbs/     update every two hours.
