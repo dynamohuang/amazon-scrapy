@@ -50,8 +50,7 @@ class AsinSpider(scrapy.Spider):
             yield item
 
     def handle_spider_closed(self, spider):
-
-        Sql.store_cate_level1()
+        Sql.store_best_asin()
         work_time = datetime.now() - spider.started_on
         print('total spent:', work_time)
         print('done')

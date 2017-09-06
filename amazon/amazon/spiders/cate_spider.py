@@ -1,5 +1,6 @@
 import scrapy
 from amazon.items import CateItem
+from amazon.mysqlpipelines.sql import Sql
 
 class CateSpider(scrapy.Spider):
     name = "cate"
@@ -9,16 +10,15 @@ class CateSpider(scrapy.Spider):
         'LOG_STDOUT': True
     }
     level = 1
-    def __int__(self, level=1, *args, **kwargs):
-        super(CateSpider, self).__init__(*args, **kwargs)
-        self.level = level
 
     def start_requests(self):
+
         urls = [
             'https://www.amazon.com/Best-Sellers/zgbs/',
         ]
+        Sql.clear_cate(self.level)
         for url in urls:
-            yield scrapy.Request(url=url, callback=self.parse, meta={'level': 1})
+            yield scrapy.Request(url=url, callback=self.parse, meta={'level': self.level})
 
     def parse(self, response):
 
