@@ -58,7 +58,7 @@ SPIDER_MIDDLEWARES = {
 DOWNLOADER_MIDDLEWARES = {
     'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
     'amazon.middlewares.RotateUserAgentMiddleware.RotateUserAgentMiddleware': 543,
-    #'amazon.middlewares.ProxyMiddleware.ProxyMiddleware': 542,
+    'amazon.middlewares.ProxyMiddleware.ProxyMiddleware': 542,
 }
 
 # Enable or disable extensions
@@ -96,11 +96,11 @@ ITEM_PIPELINES = {
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 #LOG_LEVEL = 'ERROR'
 #mysql
-MYSQL_HOST = '192.168.100.51'
-MYSQL_USER = 'root'
-MYSQL_PASSWORD = 'pricejot'
+MYSQL_HOST = '127.0.0.1'
+MYSQL_USER = 'dev'
+MYSQL_PASSWORD = '123456'
 MYSQL_PORT = 3306
-MYSQL_DB = 'ipricejot'
+MYSQL_DB = 'pricejot_test'
 MYSQL_CHARSET = 'utf8mb4'
 
 MYSQL = {
@@ -112,5 +112,5 @@ MYSQL = {
     'database': MYSQL_DB
 }
 RETRY_TIMES = 30
-DOWNLOAD_TIMEOUT = 720
+DOWNLOAD_TIMEOUT = 30
 FEED_EXPORT_ENCODING = 'utf-8'
