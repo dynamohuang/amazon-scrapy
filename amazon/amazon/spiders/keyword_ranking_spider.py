@@ -20,11 +20,13 @@ class KeywordRankingSpider(scrapy.Spider):
         self.items = {}
         self.found = {}
         self.keyword_pool = {}
+        self.store_poll = {}
         dispatcher.connect(self.init_scrapy, signals.engine_started)
         dispatcher.connect(self.close_scrapy, signals.engine_stopped)
 
     def start_requests(self):
         for keyword, poll in self.keyword_pool.items():
+            print(keyword, poll)
             yield scrapy.Request(('https://www.amazon.com/s/?field-keywords=%s&t=' + Helper.random_str(10)) % keyword,
                                  self.load_first_page, meta={'items': poll})
 
@@ -37,14 +39,20 @@ class KeywordRankingSpider(scrapy.Spider):
                 for result in result_li:
                     data_asin = result.xpath('./@data-asin').extract()[0]
                     if data_asin == item['asin']:
+                        # print(item)
                         self.found[item['id']] = True
-                        keywordItem = KeywordRankingItem()
+                        # keywordItem = KeywordRankingItem()
                         data_id = result.xpath('./@id').extract()[0]
                         item_id = data_id.split('_')[1]
-                        keywordItem['skwd_id'] = item['id']
-                        keywordItem['rank'] = int(item_id) +1
-                        yield keywordItem
-
+                        rank = int(item_id) +1
+                        if item['id'] in self.store_poll.keys():
+                            self.store_poll[item['id']].append(rank)
+                        else:
+                            self.store_poll[item['id']] = [rank]
+                        # keywordItem['skwd_id'] = item['id']
+                        # keywordItem['rank'] = int(item_id) +1
+                        # yield keywordItem
+                        # print(keywordItem)
                         break
 
     def load_first_page(self, response):
@@ -64,6 +72,7 @@ class KeywordRankingSpider(scrapy.Spider):
                 self.keyword_pool[item['keyword']].append({'id': item['id'], 'asin': item['asin']})
             else:
                 self.keyword_pool[item['keyword']] = [{'id': item['id'], 'asin': item['asin']}]
+
         self.found = {item['id']: False for item in self.items}
 
     def close_scrapy(self):
@@ -73,3 +82,9 @@ class KeywordRankingSpider(scrapy.Spider):
                     RankingSql.update_keywords_none_rank(skwd_id)
                 else:
                     RankingSql.update_keywords_expire_rank(skwd_id)
+            else:
+                keywordrank = KeywordRankingItem()
+                keywordrank['skwd_id'] = skwd_id
+                keywordrank['rank'] = min(self.store_poll[skwd_id])
+                print(keywordrank)
+
