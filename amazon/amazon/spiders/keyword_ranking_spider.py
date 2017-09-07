@@ -26,7 +26,6 @@ class KeywordRankingSpider(scrapy.Spider):
 
     def start_requests(self):
         for keyword, poll in self.keyword_pool.items():
-            print(keyword, poll)
             yield scrapy.Request(('https://www.amazon.com/s/?field-keywords=%s&t=' + Helper.random_str(10)) % keyword,
                                  self.load_first_page, meta={'items': poll})
 
@@ -86,5 +85,5 @@ class KeywordRankingSpider(scrapy.Spider):
                 keywordrank = KeywordRankingItem()
                 keywordrank['skwd_id'] = skwd_id
                 keywordrank['rank'] = min(self.store_poll[skwd_id])
-                print(keywordrank)
+                RankingSql.insert_keyword_ranking(keywordrank)
 

@@ -21,6 +21,7 @@ class ReviewSql(object):
     conn = conn_db()
     cursor = cursor_db(conn)
 
+
     @classmethod
     def insert_profile_item(cls, item):
         sql = "INSERT INTO `py_review_profile`" \
@@ -114,6 +115,7 @@ class ReviewSql(object):
 
 
 class RankingSql(object):
+    expire_rank = 500
     conn = conn_db()
     cursor = cursor_db(conn)
     py_keyword_table = 'py_salesranking_keywords'  # 爬虫抓
@@ -131,6 +133,7 @@ class RankingSql(object):
             cls.cursor.execute(sql)
             cls.cursor.execute(update_sql)
             cls.conn.commit()
+            print('save sales_rank:', item)
         except pymysql.DatabaseError as error:
             print(error)
             cls.conn.rollback()
@@ -145,6 +148,7 @@ class RankingSql(object):
             cls.cursor.execute(sql)
             cls.cursor.execute(update_sql)
             cls.conn.commit()
+            print('save keyword_rank:', item)
         except pymysql.DatabaseError as error:
             print(error)
             cls.conn.rollback()
@@ -167,12 +171,13 @@ class RankingSql(object):
 
     @classmethod
     def update_keywords_expire_rank(cls, skwd_id):
-        sql = "UPDATE `%s` SET `last_rank`=`rank`, `rank`=321, `updated_at`=NOW(), `status`=1 WHERE `id`='%s'" % (cls.keyword_table, skwd_id)
-        py_sql = "INSERT INTO `%s`(`skwd_id`, `rank`, `date`) VALUES ('%s', 321, NOW())" % (cls.py_keyword_table, skwd_id)
+        sql = "UPDATE `%s` SET `last_rank`=`rank`, `rank`='%s', `updated_at`=NOW(), `status`=1 WHERE `id`='%s'" % (cls.keyword_table, cls.expire_rank, skwd_id)
+        py_sql = "INSERT INTO `%s`(`skwd_id`, `rank`, `date`) VALUES ('%s', '%s', NOW())" % (cls.py_keyword_table, skwd_id, cls.expire_rank)
         try:
             cls.cursor.execute(sql)
             cls.cursor.execute(py_sql)
             cls.conn.commit()
+            print('update keyword_rank: [', skwd_id,'] expired')
         except pymysql.DataError as error:
             print(error)
             cls.conn.rollback()
@@ -182,6 +187,7 @@ class RankingSql(object):
         sql = "UPDATE `%s` SET `updated_at`=NOW(), `status`=2 WHERE `id`='%s'" % (cls.keyword_table, skwd_id)
         try:
             cls.cursor.execute(sql)
+            print('update keyword_rank: [', skwd_id, '] none')
         except pymysql.DataError as error:
             print(error)
             cls.conn.rollback()
