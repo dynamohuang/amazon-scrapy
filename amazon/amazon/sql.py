@@ -125,10 +125,11 @@ class RankingSql(object):
 
     @classmethod
     def insert_sales_ranking(cls, item):
+        now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         sql = "INSERT INTO `%s`(`asin`, `rank`, `classify`, `date`) VALUES ('%s', '%s', %s, '%s')" % \
-              (cls.py_sales_table, item['asin'], item['rank'], cls.conn.escape(item['classify']), datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
-        update_sql = "UPDATE `%s` SET `last_rank`=`rank`, `status`=1, `classify`=%s, `rank`='%s', `updated_at`=NOW() WHERE `asin` = '%s'"  % \
-                     (cls.sales_table, cls.conn.escape(item['classify']), item['rank'], item['asin'])
+              (cls.py_sales_table, item['asin'], item['rank'], cls.conn.escape(item['classify']), now)
+        update_sql = "UPDATE `%s` SET `last_rank`=`rank`, `status`=1, `classify`=%s, `rank`='%s', `updated_at`='%s' WHERE `asin` = '%s'"  % \
+                     (cls.sales_table, cls.conn.escape(item['classify']), item['rank'], item['asin'], now)
         try:
             cls.cursor.execute(sql)
             cls.cursor.execute(update_sql)
@@ -140,10 +141,11 @@ class RankingSql(object):
 
     @classmethod
     def insert_keyword_ranking(cls, item):
+        now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         sql = "INSERT INTO `%s`(`skwd_id`, `rank`, `date`) VALUES ('%s', '%s', '%s')" % \
-              (cls.py_keyword_table, item['skwd_id'], item['rank'], datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
-        update_sql = "UPDATE `%s` SET `last_rank`=`rank`, `rank`='%s', `status`=1, `updated_at`=NOW() WHERE `id`='%s'" % \
-                     (cls.keyword_table, item['rank'], item['skwd_id'])
+              (cls.py_keyword_table, item['skwd_id'], item['rank'], now)
+        update_sql = "UPDATE `%s` SET `last_rank`=`rank`, `rank`='%s', `status`=1, `updated_at`='%s' WHERE `id`='%s'" % \
+                     (cls.keyword_table, item['rank'], item['skwd_id'], now)
         try:
             cls.cursor.execute(sql)
             cls.cursor.execute(update_sql)
@@ -171,8 +173,9 @@ class RankingSql(object):
 
     @classmethod
     def update_keywords_expire_rank(cls, skwd_id):
-        sql = "UPDATE `%s` SET `last_rank`=`rank`, `rank`='%s', `updated_at`=NOW(), `status`=1 WHERE `id`='%s'" % (cls.keyword_table, cls.expire_rank, skwd_id)
-        py_sql = "INSERT INTO `%s`(`skwd_id`, `rank`, `date`) VALUES ('%s', '%s', NOW())" % (cls.py_keyword_table, skwd_id, cls.expire_rank)
+        now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        sql = "UPDATE `%s` SET `last_rank`=`rank`, `rank`='%s', `updated_at`='%s', `status`=1 WHERE `id`='%s'" % (cls.keyword_table, cls.expire_rank, now, skwd_id)
+        py_sql = "INSERT INTO `%s`(`skwd_id`, `rank`, `date`) VALUES ('%s', '%s', '%s')" % (cls.py_keyword_table, skwd_id, cls.expire_rank, now)
         try:
             cls.cursor.execute(sql)
             cls.cursor.execute(py_sql)
@@ -184,7 +187,7 @@ class RankingSql(object):
 
     @classmethod
     def update_keywords_none_rank(cls, skwd_id):
-        sql = "UPDATE `%s` SET `updated_at`=NOW(), `status`=2 WHERE `id`='%s'" % (cls.keyword_table, skwd_id)
+        sql = "UPDATE `%s` SET `updated_at`='%s', `status`=2 WHERE `id`='%s'" % (cls.keyword_table, now, skwd_id)
         try:
             cls.cursor.execute(sql)
             print('update keyword_rank: [', skwd_id, '] none')
