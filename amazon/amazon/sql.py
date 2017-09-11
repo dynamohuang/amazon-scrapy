@@ -131,7 +131,7 @@ class RankingSql(object):
         sql = "INSERT INTO `%s`(`asin`, `rank`, `classify`, `date`) VALUES ('%s', '%s', %s, '%s')" % \
               (cls.py_sales_table, item['asin'], item['rank'], cls.conn.escape(item['classify']), now)
         update_sql = "UPDATE `%s` SET `last_rank`=`rank`, `status`=1, `classify`=%s, `rank`='%s', `updated_at`='%s' WHERE `asin` = '%s'"  % \
-                     (cls.sales_table, cls.conn.escape(item['classify']), item['rank'], item['asin'], now)
+                     (cls.sales_table, cls.conn.escape(item['classify']), item['rank'], now, item['asin'])
         try:
             cls.cursor.execute(sql)
             cls.cursor.execute(update_sql)
@@ -147,7 +147,7 @@ class RankingSql(object):
         sql = "INSERT INTO `%s`(`skwd_id`, `rank`, `date`) VALUES ('%s', '%s', '%s')" % \
               (cls.py_keyword_table, item['skwd_id'], item['rank'], now)
         update_sql = "UPDATE `%s` SET `last_rank`=`rank`, `rank`='%s', `status`=1, `updated_at`='%s' WHERE `id`='%s'" % \
-                     (cls.keyword_table, item['rank'], item['skwd_id'], now)
+                     (cls.keyword_table, item['rank'], now, item['skwd_id'])
         try:
             cls.cursor.execute(sql)
             cls.cursor.execute(update_sql)
