@@ -63,6 +63,7 @@ class ReviewDetailItem(scrapy.Item):
 class KeywordRankingItem(scrapy.Item):
     skwd_id = scrapy.Field()
     rank = scrapy.Field()
+    date = scrapy.Field()
 
 
 class SalesRankingItem(scrapy.Item):

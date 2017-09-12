@@ -1,12 +1,16 @@
 import datetime
 
 import re
+import pytz
 
 from math import ceil
 from random import Random
 
+from amazon import settings
+
 
 class Helper(object):
+    tz = pytz.timezone(settings.TIMEZONE)
 
     @classmethod
     def get_num_split_comma(cls, value):
@@ -61,3 +65,8 @@ class Helper(object):
         for i in range(randomlength):
             str += chars[random.randint(0, length)]
         return str
+
+    @classmethod
+    def get_now_date(cls):
+        now = datetime.datetime.now(cls.tz).strftime('%Y-%m-%d %H:%M:%S')
+        return now

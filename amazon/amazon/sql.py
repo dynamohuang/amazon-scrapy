@@ -143,11 +143,10 @@ class RankingSql(object):
 
     @classmethod
     def insert_keyword_ranking(cls, item):
-        now = datetime.now(cls.tz).strftime('%Y-%m-%d %H:%M:%S')
         sql = "INSERT INTO `%s`(`skwd_id`, `rank`, `date`) VALUES ('%s', '%s', '%s')" % \
-              (cls.py_keyword_table, item['skwd_id'], item['rank'], now)
+              (cls.py_keyword_table, item['skwd_id'], item['rank'], item['date'])
         update_sql = "UPDATE `%s` SET `last_rank`=`rank`, `rank`='%s', `status`=1, `updated_at`='%s' WHERE `id`='%s'" % \
-                     (cls.keyword_table, item['rank'], now, item['skwd_id'])
+                     (cls.keyword_table, item['rank'], item['date'], item['skwd_id'])
         try:
             cls.cursor.execute(sql)
             cls.cursor.execute(update_sql)

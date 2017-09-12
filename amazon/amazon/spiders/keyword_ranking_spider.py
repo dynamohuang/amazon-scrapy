@@ -21,6 +21,7 @@ class KeywordRankingSpider(scrapy.Spider):
         self.found = {}
         self.keyword_pool = {}
         self.store_poll = {}
+        self.store_date = {}
         dispatcher.connect(self.init_scrapy, signals.engine_started)
         dispatcher.connect(self.close_scrapy, signals.engine_stopped)
 
@@ -48,6 +49,8 @@ class KeywordRankingSpider(scrapy.Spider):
                             self.store_poll[item['id']].append(rank)
                         else:
                             self.store_poll[item['id']] = [rank]
+                        self.store_date[item['id']] = Helper.get_now_date()
+                        print(self.store_date, self.store_poll)
                         # keywordItem['skwd_id'] = item['id']
                         # keywordItem['rank'] = int(item_id) +1
                         # yield keywordItem
@@ -85,5 +88,6 @@ class KeywordRankingSpider(scrapy.Spider):
                 keywordrank = KeywordRankingItem()
                 keywordrank['skwd_id'] = skwd_id
                 keywordrank['rank'] = min(self.store_poll[skwd_id])
+                keywordrank['date'] = self.store_date[skwd_id]
                 RankingSql.insert_keyword_ranking(keywordrank)
 
