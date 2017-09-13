@@ -14,7 +14,8 @@ class KeywordRankingSpider(scrapy.Spider):
         'LOG_LEVEL': 'ERROR',
         'LOG_FILE': 'keyword_ranking.json',
         'LOG_ENABLED': True,
-        'LOG_STDOUT': True
+        'LOG_STDOUT': True,
+        'CONCURRENT_REQUESTS_PER_DOMAIN': 30
     }
 
     def __init__(self, *args, **kwargs):
