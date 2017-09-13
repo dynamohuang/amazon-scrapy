@@ -1,3 +1,5 @@
+import logging
+
 import scrapy
 from pydispatch import dispatcher
 from scrapy import signals
@@ -35,6 +37,7 @@ class KeywordRankingSpider(scrapy.Spider):
         for item in response.meta['items']:
             if len(result_li) == 0:
                 self.found[item['id']] = 'none'
+                logging.warning("[keyword none]  url: [%s] skwd_id:[%s] asin:[%s] \r\n body: %s" % (response.url, item['id'],item['asin'], response.body))
             else:
                 for result in result_li:
                     data_asin = result.xpath('./@data-asin').extract()[0]
@@ -50,11 +53,6 @@ class KeywordRankingSpider(scrapy.Spider):
                         else:
                             self.store_poll[item['id']] = [rank]
                         self.store_date[item['id']] = Helper.get_now_date()
-                        print(self.store_date, self.store_poll)
-                        # keywordItem['skwd_id'] = item['id']
-                        # keywordItem['rank'] = int(item_id) +1
-                        # yield keywordItem
-                        # print(keywordItem)
                         break
 
     def load_first_page(self, response):
@@ -81,7 +79,8 @@ class KeywordRankingSpider(scrapy.Spider):
         for skwd_id, is_found in self.found.items():
             if is_found is not True:
                 if is_found == 'none':
-                    RankingSql.update_keywords_none_rank(skwd_id)
+                    # RankingSql.update_keywords_none_rank(skwd_id)
+                    logging.info('[keyword none] skwd_id:[%s]' % skwd_id)
                 else:
                     RankingSql.update_keywords_expire_rank(skwd_id)
             else:
@@ -90,4 +89,5 @@ class KeywordRankingSpider(scrapy.Spider):
                 keywordrank['rank'] = min(self.store_poll[skwd_id])
                 keywordrank['date'] = self.store_date[skwd_id]
                 RankingSql.insert_keyword_ranking(keywordrank)
+
 
