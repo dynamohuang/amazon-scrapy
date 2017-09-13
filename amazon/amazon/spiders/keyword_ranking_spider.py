@@ -37,7 +37,7 @@ class KeywordRankingSpider(scrapy.Spider):
         for item in response.meta['items']:
             if len(result_li) == 0:
                 self.found[item['id']] = 'none'
-                logging.warning("[keyword none]  url: [%s] skwd_id:[%s] asin:[%s] \r\n ip:[%s] body: %s" % (response.url, item['id'],item['asin'], response.meta['bindaddress'], response.body))
+                logging.warning("[keyword none]  url: [%s] skwd_id:[%s] asin:[%s] \r\n body: %s" % (response.url, item['id'],item['asin'], response.body))
             else:
                 for result in result_li:
                     data_asin = result.xpath('./@data-asin').extract()[0]
