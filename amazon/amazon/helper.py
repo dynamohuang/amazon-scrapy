@@ -13,15 +13,17 @@ class Helper(object):
     tz = pytz.timezone(settings.TIMEZONE)
 
     @classmethod
-    def get_num_split_comma(cls, value):
-        num = value.split(',')
-        ranknum = ''
-        if len(num) > 1:
-            for n in num:
-                ranknum += n
-            return ranknum
-        else:
-            return value
+    def get_num_split_comma(cls, value):    
+        # num = value.split(',')
+        # ranknum = ''
+        # if len(num) > 1:
+        #     for n in num:
+        #         ranknum += n
+        #     return ranknum
+        # else:
+        #     return value
+        
+        return value.replace(',', '')
 
     @classmethod
     def get_star_split_str(cls, value):
