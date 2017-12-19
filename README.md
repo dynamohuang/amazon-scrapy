@@ -1,7 +1,11 @@
 # amazon-scrapy
 Scrapy the  detail and lowest price of amazon  best seller product by python spider
  
-In developing........, welcome to join ! 
+In developing........, welcome to join !
+
+Some code has apply to pricejot.com, I will update the project in next month;
+https://www.pricejot.com/
+
 
 ## How to install
 install python3.6
@@ -34,11 +38,22 @@ https://www.amazon.com/gp/offer-listing/B01FCTAEK4
 * python https://bop.molun.net/
 * scrapy https://docs.scrapy.org/en/latest/
 
+
 ## Contract us
 Email：huangdingzhi@foxmail.com
 Wechat:dzdzhuang
 
 Based on  Python 3.6
+
+## License
+
+The MIT License(http://opensource.org/licenses/MIT)
+
+Please feel free to use and contribute to the development.
+
+## Contribution
+
+If you have any ideas or suggestions to improve Amazon-scrapy, welcome to submit an issue/pull request.
 
 
 
