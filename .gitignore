@@ -3,3 +3,4 @@ amazon/amazon/spiders/__pycache__/
 amazon/amazon/__pycache__/
 amazon/amazon/mysqlpipelines/__pycache__/
 amazon/amazon/*.json
+/amazon/amazon/settings.py
