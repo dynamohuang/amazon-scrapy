@@ -1,4 +1,4 @@
 .idea
-*/__pycache__
+**/__pycache__
 amazon/amazon/*.json
 /amazon/amazon/settings.py
