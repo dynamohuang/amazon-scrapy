@@ -3,8 +3,10 @@ Scrapy the  detail and lowest price of amazon  best seller product by python spi
  
 In developing........, welcome to join !
 
-Some code has apply to pricejot.com, I will update the project in next month;
+Some code has apply to pricejot.com.
 https://www.pricejot.com/
+
+Sorry for that I don`t update the spider for long time. Some feature maybe have some bug now and the introducton document is not so completely. Anyway I`am back and will fix it in the month ! 
 
 
 ## How to install
