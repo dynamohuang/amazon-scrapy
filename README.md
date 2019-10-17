@@ -6,7 +6,6 @@ In developing........, welcome to join !
 Some code has apply to pricejot.com.
 https://www.pricejot.com/
 
-Sorry for that I don`t update the spider for long time. Some feature maybe have some bug now and the  document is not so completely. Anyway I`am back and will fix it in the month ! 
 
 
 ## How to install
@@ -28,7 +27,7 @@ https://www.amazon.com/gp/offer-listing/B01FCTAEK4
 ## TODO
 1. Scrapy the reviews by asin https://www.amazon.com/Libratone-ONE-Click-Caribbean-Green/product-reviews/B00ZU33BBC
 2. Scrapy the detail by asin pool(50%)
-3. Find the bad comment customer·s email and order id（considering to open source）
+
 
 ## done
 1. Scrapy  the category of level 1 from https://www.amazon.com/Best-Sellers/zgbs/ and store in mysql
