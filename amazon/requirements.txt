@@ -1,4 +1,4 @@
-Scrapy==1.4.0
+Scrapy==2.11.1
 PyMySQL==0.7.11
 PyDispatcher==2.0.5
 pytz==2017.2
