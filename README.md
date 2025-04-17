@@ -40,9 +40,9 @@ https://www.amazon.com/gp/offer-listing/B01FCTAEK4
 * scrapy https://docs.scrapy.org/en/latest/
 
 ## About proxy service
-Recommend to use swiftproxy https://www.swiftproxy.net/
-We get proxy list from all over the world by random eg.(https://www.swiftproxy.net/api/proxy/get_proxy_ip?num=100&regions=GLOBAL&protocol=http&return_type=txt&lb=1&sb=)
-By the way, We need login in and set the white_ip to use the proxy.
+1. Recommend to use swiftproxy https://www.swiftproxy.net/
+2. We get proxy list from all over the world by random eg: https://www.swiftproxy.net/api/proxy/get_proxy_ip?num=100&regions=GLOBAL&protocol=http&return_type=txt&lb=1&sb=
+3. By the way, We need login in and set the white_ip to use the proxy.
 
 
 ## Contract us
